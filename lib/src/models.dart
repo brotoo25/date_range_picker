@@ -84,6 +84,9 @@ class DayModel {
 
 /// A customizable theme for the calendar widget.
 class CalendarTheme {
+  /// The default background color of the calendar.
+  final Color backgroundColor;
+
   /// The color of the selected day.
   final Color selectedColor;
 
@@ -124,7 +127,8 @@ class CalendarTheme {
   final Color? selectedQuickDateRangeColor;
 
   const CalendarTheme(
-      {required this.selectedColor,
+      {required this.backgroundColor,
+      required this.selectedColor,
       required this.inRangeColor,
       required this.inRangeTextStyle,
       required this.selectedTextStyle,

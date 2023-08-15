@@ -14,6 +14,7 @@ Future<DateRange?> showDateRangePickerDialog({
   required BuildContext context,
   required DateRangerPickerWidgetBuilder builder,
   Color barrierColor = Colors.transparent,
+  Color backgroundColor = Colors.transparent,
   Widget Function({DateRange? selectedDateRange})? footerBuilder,
   Offset? offset,
 }) {
@@ -30,6 +31,7 @@ Future<DateRange?> showDateRangePickerDialog({
             left: offset?.dx ?? 0,
             child: DateRangePickerDialog(
               builder: builder,
+              backgroundColor: backgroundColor,
               footerBuilder: footerBuilder ?? DateRangePickerDialogFooter.new,
             ),
           ),
@@ -52,6 +54,7 @@ Future<DateRange?> showDateRangePickerDialogOnWidget({
   required DateRangerPickerWidgetBuilder pickerBuilder,
   BuildContext? context,
   Color barrierColor = Colors.transparent,
+  Color backgroundColor = Colors.transparent,
   Widget Function({DateRange? selectedDateRange})? dialogFooterBuilder,
   Offset delta = const Offset(0, 60),
 }) {
@@ -64,6 +67,7 @@ Future<DateRange?> showDateRangePickerDialogOnWidget({
       context: context ?? widgetContext,
       footerBuilder: dialogFooterBuilder,
       barrierColor: barrierColor,
+      backgroundColor: backgroundColor,
       builder: pickerBuilder,
       offset: offset + delta);
 
@@ -74,9 +78,12 @@ Future<DateRange?> showDateRangePickerDialogOnWidget({
 class DateRangePickerDialog extends StatefulWidget {
   const DateRangePickerDialog({
     Key? key,
+    required this.backgroundColor,
     required this.builder,
     required this.footerBuilder,
   }) : super(key: key);
+
+  final Color backgroundColor;
 
   /// A function that builds a widget that will be used to display the date range picker.
   final DateRangerPickerWidgetBuilder builder;
@@ -96,10 +103,10 @@ class _DateRangePickerDialogState extends State<DateRangePickerDialog> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      color: widget.backgroundColor,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.backgroundColor,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(

@@ -5,6 +5,7 @@ import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 
 /// The default [CalendarTheme] used by the date range picker.
 const CalendarTheme kTheme = CalendarTheme(
+  backgroundColor: Colors.white,
   selectedColor: Colors.blue,
   dayNameTextStyle: TextStyle(color: Colors.black45, fontSize: 10),
   inRangeColor: Color(0xFFD9EDFA),
@@ -216,41 +217,44 @@ class DateRangePickerWidgetState extends State<DateRangePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: widget.theme.tileSize * 7 * (widget.doubleMonth ? 2 : 1),
-          child: MonthSelectorAndDoubleIndicator(
-            doubleMonth: widget.doubleMonth,
-            onPrevious: calendarController.previous,
-            onNext: calendarController.next,
-            currentMonth: calendarController.currentMonth,
-            nextMonth: calendarController.nextMonth,
-            style: widget.theme.monthTextStyle,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            EnrichedMonthWrapWidget(
-              theme: widget.theme,
-              onDateChanged: calendarController.onDateChanged,
-              days: calendarController.retrieveDatesForMonth(),
-              delta: calendarController.retrieveDeltaForMonth(),
+    Widget child = Container(
+      color: widget.theme.backgroundColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: widget.theme.tileSize * 7 * (widget.doubleMonth ? 2 : 1),
+            child: MonthSelectorAndDoubleIndicator(
+              doubleMonth: widget.doubleMonth,
+              onPrevious: calendarController.previous,
+              onNext: calendarController.next,
+              currentMonth: calendarController.currentMonth,
+              nextMonth: calendarController.nextMonth,
+              style: widget.theme.monthTextStyle,
             ),
-            if (widget.doubleMonth)
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
               EnrichedMonthWrapWidget(
                 theme: widget.theme,
                 onDateChanged: calendarController.onDateChanged,
-                days: calendarController.retrieveDatesForNextMonth(),
-                delta: calendarController.retrieveDeltaForNextMonth(),
+                days: calendarController.retrieveDatesForMonth(),
+                delta: calendarController.retrieveDeltaForMonth(),
               ),
-          ],
-        ),
-      ],
+              if (widget.doubleMonth)
+                EnrichedMonthWrapWidget(
+                  theme: widget.theme,
+                  onDateChanged: calendarController.onDateChanged,
+                  days: calendarController.retrieveDatesForNextMonth(),
+                  delta: calendarController.retrieveDeltaForNextMonth(),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
 
     if (widget.quickDateRanges.isNotEmpty) {
