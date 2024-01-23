@@ -126,6 +126,9 @@ class CalendarTheme {
   /// The color of the selected quick selection dateRange (left border).
   final Color? selectedQuickDateRangeColor;
 
+  /// The color of the vertical separator between months
+  final Color? separatorColor;
+
   const CalendarTheme(
       {required this.backgroundColor,
       required this.selectedColor,
@@ -144,7 +147,8 @@ class CalendarTheme {
           const TextStyle(color: Colors.black45, fontSize: 10),
       required this.radius,
       required this.tileSize,
-      this.selectedQuickDateRangeColor});
+      this.selectedQuickDateRangeColor,
+      this.separatorColor});
 }
 
 /// A model that represents a quick selection dateRange in the quick selection widget.
